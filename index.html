@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>رحلة استكشاف اسم الآلة - إعداد المعلمة شذى الحازمي</title>
+    <script src="https://cdn.taCDN.TAilwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        .step-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        .tool-highlight {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .tool-highlight:hover {
+            background-color: #D97757;
+            color: white;
+            padding: 0 4px;
+            border-radius: 4px;
+        }
+        .emoji-icon {
+            font-size: 3.5rem;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+        .emoji-icon:hover {
+            transform: scale(1.2);
+        }
+        /* بطاقات المفهوم المطورة */
+        .concept-card .verb-side {
+            display: block;
+        }
+        .concept-card .noun-side {
+            display: none;
+        }
+        .concept-card.is-flipped .verb-side {
+            display: none;
+        }
+        .concept-card.is-flipped .noun-side {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 antialiased min-h-screen flex flex-col">
+
+<!-- Chosen Palette: Warm Neutrals with Terracotta Accent -->
+<!-- Application Structure Plan: Interactive journey mapping the 5 pedagogical stages. 
+     Updates: 
+     1. Box Interaction: Emoji click triggers the summary phrase. 
+     2. Concept Cards: Click-to-swap mechanism (verb vanishes, noun appears). 
+     3. Content: Replaced Refrigerator with Pen.
+     4. Footer: Updated teacher credit. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <header class="bg-white shadow-sm border-b-4 border-[#D97757] sticky top-0 z-50">
+        <div class="max-w-5xl mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-extrabold text-[#4A8586]">لغتي الخالدة | <span class="text-[#D97757]">اسم الآلة</span></h1>
+            <div class="text-sm font-medium bg-[#FDFBF7] px-3 py-1 rounded-full text-gray-600 border border-gray-200">
+                إعداد المعلمة: شذى الحازمي
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-5xl mx-auto w-full px-4 py-8 flex flex-col md:flex-row gap-8">
+        
+        <aside class="md:w-1/4 flex-shrink-0">
+            <div class="bg-white p-4 rounded-xl shadow-md border border-gray-100 sticky top-24">
+                <h2 class="font-bold text-lg mb-4 text-gray-700 border-b pb-2 border-gray-100">مسار الدرس</h2>
+                <nav id="stepNav" class="flex flex-col gap-2">
+                    <button onclick="goToStep(1)" class="nav-btn w-full text-right px-4 py-3 rounded-lg font-medium transition-colors bg-[#D97757] text-white shadow-sm" data-step="1">1. صندوق المفاجآت</button>
+                    <button onclick="goToStep(2)" class="nav-btn w-full text-right px-4 py-3 rounded-lg font-medium transition-colors bg-gray-50 text-gray-600 hover:bg-gray-100" data-step="2">2. قصة النجار</button>
+                    <button onclick="goToStep(3)" class="nav-btn w-full text-right px-4 py-3 rounded-lg font-medium transition-colors bg-gray-50 text-gray-600 hover:bg-gray-100" data-step="3">3. المفهوم والتعريف</button>
+                    <button onclick="goToStep(4)" class="nav-btn w-full text-right px-4 py-3 rounded-lg font-medium transition-colors bg-gray-50 text-gray-600 hover:bg-gray-100" data-step="4">4. أدوات حولنا</button>
+                    <button onclick="goToStep(5)" class="nav-btn w-full text-right px-4 py-3 rounded-lg font-medium transition-colors bg-gray-50 text-gray-600 hover:bg-gray-100" data-step="5">5. أوزان الآلات</button>
+                </nav>
+            </div>
+        </aside>
+
+        <section class="md:w-3/4 bg-white p-6 md:p-10 rounded-2xl shadow-lg border border-gray-50 relative overflow-hidden">
+            
+            <!-- Step 1: Surprise Box -->
+            <div id="step-1" class="step-content active">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-[#4A8586] mb-3">صندوق المفاجآت</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        انقر على الصندوق لاكتشاف ما بداخله، ثم انقر على أي أداة تظهر لك لمعرفة الرابط العجيب بينها!
+                    </p>
+                </div>
+
+                <div class="bg-[#FDFBF7] rounded-xl p-8 text-center border-2 border-dashed border-[#E2A859]">
+                    <p class="text-xl font-medium mb-6">"هل يمكننا بناء منزل بأيدينا المجردة فقط؟"</p>
+                    
+                    <button id="boxBtn" class="text-7xl hover:scale-110 transition-transform duration-300 drop-shadow-md focus:outline-none mb-4">
+                        📦
+                    </button>
+                    <p id="boxHint" class="text-sm text-gray-500">انقر لفتح الصندوق</p>
+
+                    <div id="iconsContainer" class="hidden mt-8 transition-all">
+                        <h3 class="text-lg font-bold text-[#4A8586] mb-6">ما هي هذه الأشياء؟ (انقر على أحدها)</h3>
+                        <div class="flex flex-wrap justify-center gap-8 text-5xl mb-8">
+                            <span class="emoji-icon tool-trigger" onclick="showFinalPhrase()">🔨</span>
+                            <span class="emoji-icon tool-trigger" onclick="showFinalPhrase()">🪚</span>
+                            <span class="emoji-icon tool-trigger" onclick="showFinalPhrase()">🪛</span>
+                            <span class="emoji-icon tool-trigger" onclick="showFinalPhrase()">🔑</span>
+                            <span class="emoji-icon tool-trigger" onclick="showFinalPhrase()">🖊️</span>
+                        </div>
+                        
+                        <div id="finalPhrase" class="hidden opacity-0 transition-opacity duration-700">
+                            <p class="text-gray-700 font-bold bg-white inline-block px-8 py-4 rounded-full shadow-lg border-2 border-[#D97757] text-2xl animate-bounce">
+                                جميعها <strong class="text-[#D97757]">أدوات</strong> نستخدمها لإنجاز العمل!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 flex justify-end">
+                    <button onclick="goToStep(2)" class="bg-[#4A8586] hover:bg-[#396a6b] text-white px-6 py-2 rounded-lg font-bold transition-colors">التالي: قصة النجار ←</button>
+                </div>
+            </div>
+
+            <!-- Step 2: Carpenter Story -->
+            <div id="step-2" class="step-content">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-[#4A8586] mb-3">قصة النجار</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">تفاعل مع الكلمات الملونة لاكتشاف الفعل الذي اشتق منه اسم الآلة.</p>
+                </div>
+                <div class="flex flex-col lg:flex-row gap-8 items-center">
+                    <div class="lg:w-2/3 bg-gray-50 p-6 rounded-xl border border-gray-200 text-xl leading-loose">
+                        "بالأمس، تعطل باب منزلي، فاستدعيتُ نجاراً ماهراً. رأيته يُخرج من حقيبته 
+                        <span class="tool-highlight font-bold text-[#D97757]" data-verb="فَكَّ">مفكاً</span>، ثم استخدم 
+                        <span class="tool-highlight font-bold text-[#D97757]" data-verb="نَشَرَ">منشاراً</span>، وبعدها استعمل 
+                        <span class="tool-highlight font-bold text-[#D97757]" data-verb="بَرَدَ">مبردًا</span> لتنعيم الحواف. وفي النهاية، استخدم 
+                        <span class="tool-highlight font-bold text-[#D97757]" data-verb="فَتَحَ">المفتاح</span>."
+                    </div>
+                    <div class="lg:w-1/3 w-full">
+                        <div id="verbDisplay" class="bg-[#4A8586] text-white p-6 rounded-xl shadow-md text-center h-full flex flex-col justify-center min-h-[150px] transition-all">
+                            <p class="font-medium text-lg">مرر الماوس على الأدوات في القصة</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(1)" class="text-gray-500 px-4 py-2 font-medium">→ السابق</button>
+                    <button onclick="goToStep(3)" class="bg-[#4A8586] text-white px-6 py-2 rounded-lg font-bold">التالي ←</button>
+                </div>
+            </div>
+
+            <!-- Step 3: Definition & Swapping Cards -->
+            <div id="step-3" class="step-content">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-[#4A8586] mb-3">المفهوم والتعريف</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        انقر على الفعل أدناه ليختفي ويظهر مكانه اسم الآلة المناسب له.
+                    </p>
+                </div>
+
+                <div class="bg-gradient-to-r from-[#4A8586] to-[#396a6b] text-white p-6 rounded-xl shadow-md mb-8">
+                    <p class="text-lg leading-relaxed">
+                        <strong class="text-[#E2A859] text-xl">اسم الآلة:</strong> اسم مشتق من الفعل ليدلنا على الأداة التي وقع بها الفعل.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1 -->
+                    <div class="concept-card border-2 border-[#4A8586] rounded-xl p-8 text-center bg-white cursor-pointer shadow-sm hover:shadow-md transition-all" onclick="toggleConceptCard(this)">
+                        <div class="verb-side">
+                            <p class="text-gray-400 text-xs mb-2">انقر على الفعل</p>
+                            <p class="text-3xl font-bold text-[#D97757]">كَنَسَ</p>
+                        </div>
+                        <div class="noun-side">
+                            <p class="text-gray-400 text-xs mb-2">اسم الآلة هو:</p>
+                            <p class="text-4xl font-black text-[#4A8586]">مِكْنَسَة</p>
+                        </div>
+                    </div>
+                    <!-- Card 2 -->
+                    <div class="concept-card border-2 border-[#4A8586] rounded-xl p-8 text-center bg-white cursor-pointer shadow-sm hover:shadow-md transition-all" onclick="toggleConceptCard(this)">
+                        <div class="verb-side">
+                            <p class="text-gray-400 text-xs mb-2">انقر على الفعل</p>
+                            <p class="text-3xl font-bold text-[#D97757]">حَرَثَ</p>
+                        </div>
+                        <div class="noun-side">
+                            <p class="text-gray-400 text-xs mb-2">اسم الآلة هو:</p>
+                            <p class="text-4xl font-black text-[#4A8586]">مِحْرَاث</p>
+                        </div>
+                    </div>
+                    <!-- Card 3 (Updated: Pen) -->
+                    <div class="concept-card border-2 border-[#4A8586] rounded-xl p-8 text-center bg-white cursor-pointer shadow-sm hover:shadow-md transition-all" onclick="toggleConceptCard(this)">
+                        <div class="verb-side">
+                            <p class="text-gray-400 text-xs mb-2">انقر على الفعل</p>
+                            <p class="text-3xl font-bold text-[#D97757]">كَتَبَ</p>
+                        </div>
+                        <div class="noun-side">
+                            <p class="text-gray-400 text-xs mb-2">اسم الآلة هو:</p>
+                            <p class="text-4xl font-black text-[#4A8586]">قَلَم</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(2)" class="text-gray-500 px-4 py-2 font-medium">→ السابق</button>
+                    <button onclick="goToStep(4)" class="bg-[#4A8586] text-white px-6 py-2 rounded-lg font-bold">التالي ←</button>
+                </div>
+            </div>
+
+            <!-- Step 4: Tools Chart -->
+            <div id="step-4" class="step-content">
+                <div class="mb-8">
+                    <h2 class="text-3xl font-bold text-[#4A8586] mb-3">أدوات حولنا</h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">تصنيف الآلات حسب بيئة استخدامها.</p>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div class="bg-[#FDFBF7] p-6 rounded-xl border border-gray-200">
+                        <ul class="space-y-4">
+                            <li class="flex items-center gap-3">🖊️ <span><strong>قلم:</strong> آلة للكتابة</span></li>
+                            <li class="flex items-center gap-3">📏 <span><strong>مسطرة:</strong> آلة للتسطير</span></li>
+                            <li class="flex items-center gap-3">🧺 <span><strong>غسالة:</strong> آلة للغسيل</span></li>
+                        </ul>
+                    </div>
+                    <div class="bg-white p-4 rounded-xl shadow-sm border">
+                        <div class="chart-container">
+                            <canvas id="toolsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-between">
+                    <button onclick="goToStep(3)" class="text-gray-500 px-4 py-2 font-medium">→ السابق</button>
+                    <button onclick="goToStep(5)" class="bg-[#4A8586] text-white px-6 py-2 rounded-lg font-bold">التالي ←</button>
+                </div>
+            </div>
+
+            <!-- Step 5: Foundation -->
+            <div id="step-5" class="step-content">
+                <div class="mb-8 text-center">
+                    <h2 class="text-3xl font-bold text-[#4A8586] mb-3">تهيئة الأساس للدرس</h2>
+                    <p class="text-gray-600 text-lg">سنتعرف الآن على الأوزان القياسية لاسم الآلة.</p>
+                </div>
+                <div class="bg-[#FDFBF7] p-10 rounded-2xl text-center border border-gray-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+                        <div class="bg-white p-6 rounded-xl shadow-sm border">
+                            <p class="text-gray-500 text-sm">أوزان قديمة</p>
+                            <p class="text-2xl font-bold text-[#4A8586]">مِفْعَال ، مِفْعَل</p>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl shadow-sm border">
+                            <p class="text-gray-500 text-sm">أوزان حديثة</p>
+                            <p class="text-2xl font-bold text-[#D97757]">فَاعُول ، فَعَّالَة</p>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-black text-[#4A8586] border-b-4 border-[#E2A859] pb-2 inline-block">فلنبدأ الدرس يا أبطال!</h3>
+                </div>
+                <div class="mt-8 flex justify-center">
+                    <button onclick="goToStep(1)" class="bg-gray-800 text-white px-8 py-3 rounded-lg font-bold">إعادة الرحلة ↺</button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-auto">
+        <div class="max-w-5xl mx-auto px-4 py-8 text-center">
+            <p class="text-gray-500 text-sm mb-4">تم إعداد هذا التطبيق التفاعلي لمساندة درس "اسم الآلة".</p>
+            <div class="pt-4 border-t border-gray-100">
+                 <p class="text-xl font-bold text-[#4A8586]">إعداد المعلمة: شذى الحازمي</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // --- Navigation ---
+        function goToStep(stepNumber) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                const isActive = btn.dataset.step == stepNumber;
+                btn.classList.toggle('bg-[#D97757]', isActive);
+                btn.classList.toggle('text-white', isActive);
+                btn.classList.toggle('shadow-sm', isActive);
+                btn.classList.toggle('bg-gray-50', !isActive);
+                btn.classList.toggle('text-gray-600', !isActive);
+            });
+            document.querySelectorAll('.step-content').forEach(section => section.classList.remove('active'));
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+            if(stepNumber === 4 && !window.chartRendered) { renderChart(); window.chartRendered = true; }
+        }
+
+        // --- Step 1: Logic (Updated) ---
+        const boxBtn = document.getElementById('boxBtn');
+        const iconsContainer = document.getElementById('iconsContainer');
+        const finalPhrase = document.getElementById('finalPhrase');
+        const boxHint = document.getElementById('boxHint');
+
+        boxBtn.addEventListener('click', () => {
+            boxBtn.innerText = '🔓';
+            boxHint.classList.add('hidden');
+            iconsContainer.classList.remove('hidden');
+        });
+
+        function showFinalPhrase() {
+            finalPhrase.classList.remove('hidden');
+            setTimeout(() => {
+                finalPhrase.classList.remove('opacity-0');
+                finalPhrase.classList.add('opacity-100');
+            }, 10);
+        }
+
+        // --- Step 2: Hover Logic ---
+        const highlights = document.querySelectorAll('.tool-highlight');
+        const verbDisplay = document.getElementById('verbDisplay');
+        highlights.forEach(item => {
+            item.addEventListener('mouseenter', (e) => {
+                const verb = e.target.getAttribute('data-verb');
+                verbDisplay.innerHTML = `<p class="text-sm opacity-80">الفعل المشتق:</p><p class="text-5xl font-black text-[#FDFBF7]">${verb}</p>`;
+                verbDisplay.style.backgroundColor = '#D97757';
+            });
+            item.addEventListener('mouseleave', () => {
+                verbDisplay.innerHTML = `<p class="font-medium text-lg">مرر الماوس على الأدوات في القصة</p>`;
+                verbDisplay.style.backgroundColor = '#4A8586';
+            });
+        });
+
+        // --- Step 3: Card Toggle (Fixed logic) ---
+        function toggleConceptCard(card) {
+            card.classList.toggle('is-flipped');
+        }
+
+        // --- Step 4: Chart ---
+        function renderChart() {
+            const ctx = document.getElementById('toolsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['منزلية', 'مهنية', 'مدرسية'],
+                    datasets: [{
+                        data: [45, 30, 25],
+                        backgroundColor: ['#4A8586', '#D97757', '#E2A859'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { position: 'bottom', rtl: true, labels: { font: { family: "'Tajawal', sans-serif" } } } }
+                }
+            });
+        }
+    </script>
+</body>
+</html>
